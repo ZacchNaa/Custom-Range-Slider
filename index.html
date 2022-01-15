@@ -1,30 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="range-wrap">
-        <div class="range-value" id="rangeV"></div>
-        <input id="range" type="range" min="1" max="9" value="3" step="1">
-    </div>
-</body>
-<script>
-    const
-        range = document.getElementById('range'),
-        rangeV = document.getElementById('rangeV'),
-        setValue = () => {
-            const
-                newValue = Number((range.value - range.min) * 100 / (range.max - range.min)),
-                newPosition = 10 - (newValue * 0.2);
-            rangeV.innerHTML = `<span>${range.value}</span>`;
-            rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
-        };
-    document.addEventListener("DOMContentLoaded", setValue);
-    range.addEventListener('input', setValue);
-</script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="range-wrap">
+			<div class="range-value" id="rangeV"></div>
+			<input id="range" type="range" min="1" max="9" value="3" step="1" />
+		</div>
+		<div class="prices">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Start-Up</th>
+						<th>Growth</th>
+						<th>Enterprise</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><span class="startUp">$1, 234.00</span></td>
+						<td><span class="growth">$2, 234.00</span></td>
+						<td><span class="enterprice">$3, 234.00</span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<script>
+		const prices = [
+			{ id: 1, priceOne: 10000, priceTwo: 20000, priceThree: 30000 },
+			{ id: 2, priceOne: 40000, priceTwo: 50000, priceThree: 60000 },
+			{ id: 3, priceOne: 70000, priceTwo: 80000, priceThree: 90000 },
+			{ id: 4, priceOne: 100000, priceTwo: 200000, priceThree: 300000 },
+			{ id: 5, priceOne: 110000, priceTwo: 210000, priceThree: 310000 },
+			{ id: 6, priceOne: 120000, priceTwo: 220000, priceThree: 320000 },
+			{ id: 7, priceOne: 130000, priceTwo: 230000, priceThree: 330000 },
+			{ id: 8, priceOne: 140000, priceTwo: 240000, priceThree: 340000 },
+			{ id: 9, priceOne: 150000, priceTwo: 250000, priceThree: 350000 },
+		];
+		const range = document.getElementById("range"),
+			rangeV = document.getElementById("rangeV"),
+			startUp = document.querySelector(".startUp"),
+			growth = document.querySelector(".growth"),
+			enterprice = document.querySelector(".enterprice"),
+			setValue = () => {
+				const newValue = Number(
+						((range.value - range.min) * 100) / (range.max - range.min)
+					),
+					newPosition = 10 - newValue * 0.2;
+				rangeV.innerHTML = `<span>${range.value}</span>`;
+				rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+				prices.forEach((price) => {
+					if (price.id == range.value) {
+						startUp.innerHTML = price.priceOne;
+						growth.innerHTML = price.priceTwo;
+						enterprice.innerHTML = price.priceThree;
+					}
+				});
+			};
+		document.addEventListener("DOMContentLoaded", setValue);
+		range.addEventListener("input", setValue);
+	</script>
 </html>
